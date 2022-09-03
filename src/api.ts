@@ -28,3 +28,4 @@ export const openUrlFromCraft = async (url: string) => {
 
   return result
 }
+
