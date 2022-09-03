@@ -1,6 +1,8 @@
 import * as React from "react"
 import * as ReactDOM from 'react-dom'
-import craftXIconSrc from "./craftx-icon.png"
+import {useCraftDarkMode} from "./hooks/useCraftDarkMode";
+import {InsertHelloWorldComponent} from "./InsertHelloWorldComponent";
+import {Layout} from "./Layout";
 
 const App: React.FC<{}> = () => {
   const isDarkMode = useCraftDarkMode();
@@ -13,47 +15,11 @@ const App: React.FC<{}> = () => {
     }
   }, [isDarkMode]);
 
-  return <div style={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  }}>
-    <img className="icon" src={craftXIconSrc} alt="CraftX logo" />
-    <button className={`btn ${isDarkMode ? "dark" : ""}`} onClick={insertHelloWorld}>
-      Hello world!
-    </button>
-  </div>;
-}
-
-function useCraftDarkMode() {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
-
-  React.useEffect(() => {
-    craft.env.setListener(env => setIsDarkMode(env.colorScheme === "dark"));
-  }, []);
-
-  return isDarkMode;
-}
-
-function insertHelloWorld() {
-  const block = craft.blockFactory.textBlock({
-    content: "Hello world!"
-  });
-
-
-
-
-  craft.dataApi.getCurrentPage()
-    .then(res => {
-      console.log("This is current page")
-      console.log(res)
-    })
-    .catch(error => {
-      console.log("error happened")
-      console.log(error)
-    })
-
-  craft.dataApi.addBlocks([block]);
+  return (
+    <Layout>
+      <InsertHelloWorldComponent />
+    </Layout>
+  )
 }
 
 export function initApp() {
